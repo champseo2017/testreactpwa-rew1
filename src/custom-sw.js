@@ -18,21 +18,6 @@ workbox.routing.registerRoute(
     ],
   }),
 );
-
-workbox.routing.registerRoute(
-  new RegExp('https://jsonplaceholder.typicode.com/users'),
-  workbox.strategies.cacheFirst({
-    cacheName: 'poc-cache-Stylesheetsusers',
-    plugins: [
-      new workbox.expiration.Plugin({
-        maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
-        maxEntries: 20, // only cache 20 request
-        purgeOnQuotaError: true,
-      }),
-    ],
-  }),
-);
-
 workbox.routing.registerRoute(
   new RegExp('.(png|svg|jpg|jpeg)$'),
   workbox.strategies.cacheFirst({
@@ -49,8 +34,8 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   new RegExp('^https://jsonplaceholder\\.typicode\\.com/users/'),
-  workbox.strategies.CacheFirst({
-    cacheName: 'user-cache',
+  new workbox.strategies.CacheFirst({
+    cacheName: 'users-cache',
     plugins: [
       new workbox.cacheableResponse.Plugin({
         statuses: [0, 200],
